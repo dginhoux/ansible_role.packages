@@ -1,4 +1,4 @@
-ginhouxnet.sysctl
+ginhouxnet.fstab
 =========
 
 This ansible role configure fstab
