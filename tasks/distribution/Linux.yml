@@ -1,0 +1,40 @@
+---
+- name: configure fstab
+  template:
+    dest: /etc/fstab
+    owner: root
+    group: root
+    mode: 0644
+    src: fstab.j2
+  # notify: fstab_update
+
+
+- name: create additional mount directories
+  file:
+    path: "{{ item.target }}"
+    state: directory
+  loop: "{{ fstab_mounts }}"
+  # listen: fstab_update
+  when: >
+    fstab_create_additional_dirs
+    and
+    item.target != "none"
+
+
+- name: systemd reload-daemon
+  systemd:
+    daemon_reload: yes
+  # listen: fstab_update
+  when: ansible_service_mgr == "systemd"
+
+
+- name: mount -a
+  shell:
+    cmd: mount -a
+  # listen: fstab_update
+  when: >
+    fstab_reload
+    and
+    fstab_reload_method == "mount"
+  args:
+    warn: false
