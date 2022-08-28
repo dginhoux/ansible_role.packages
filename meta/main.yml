@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: dginhoux
-  description: configure fstab
+  description: manage pakcage
   company: ginhouxnet
   license: MIT
   min_ansible_version: 2.9
@@ -25,5 +25,10 @@ galaxy_info:
         - 7
         - 8
   galaxy_tags:
-    - fstab
+    - deb
+    - rpm
+    - package
+    - yum
+    - dnf
+    - apt
   dependencies: []

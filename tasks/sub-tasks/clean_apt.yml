@@ -1,0 +1,4 @@
+---
+- name: apt clean all
+  shell: apt clean all
+  no_log: "true"

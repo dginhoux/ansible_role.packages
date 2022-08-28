@@ -1,0 +1,19 @@
+---
+
+- name: dnf check updates
+  dnf:
+    list: updates
+    update_cache: yes
+  register: dnf_output
+
+# - debug:
+#     var: dnf_output
+
+- name: dnf show availables updates
+  debug:
+    msg: "{% set dnf_output2 = [] %}\
+      {% for result in dnf_output.results %}\
+      {{ dnf_output2.append( result.name ~ '-' ~ result.version ~ '-' ~ result.release ) }}\
+      {% endfor %}\
+      {{ dnf_output2 }}"
+  when: dnf_output.results is defined and dnf_output.results is iterable and dnf_output.results | length > 0

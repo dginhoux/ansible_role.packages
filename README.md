@@ -1,7 +1,7 @@
 ginhouxnet.fstab
 =========
 
-This ansible role configure fstab
+This ansible role manage linux package
 
 
 Requirements

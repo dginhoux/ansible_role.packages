@@ -1,0 +1,4 @@
+---
+- name: dnf clean all
+  shell: dnf clean all
+  no_log: "true"

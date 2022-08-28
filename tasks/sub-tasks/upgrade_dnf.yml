@@ -1,0 +1,19 @@
+---
+
+- name: dnf install updates
+  dnf:
+    name: "*"
+    update_cache: yes
+    state: latest
+  register: dnf_result
+
+# - name: List updated packages
+- shell: rpm -qa --last | grep "$(date +%a\ %d\ %b\ %Y)" | cut -f 1 -d " "
+  register: rpm_result
+  args:
+    warn: no
+  when: dnf_result.changed == "true"
+
+- name: dnf show upgrades
+  debug: msg="{{ rpm_result.stdout_lines }}"
+  when: dnf_result.changed == "true"
