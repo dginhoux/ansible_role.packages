@@ -1,4 +1,4 @@
-ginhouxnet.fstab
+ginhouxnet.packages
 =========
 
 This ansible role manage linux package
