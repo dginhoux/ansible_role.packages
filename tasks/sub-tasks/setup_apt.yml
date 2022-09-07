@@ -1,10 +1,56 @@
 ---
-- name: install/remove with apt
-  apt:
-    name: "{{ item.apt | default(item.name) }}"
-    state: "{{ item.state | default(package_state) }}"
-    update_cache: "{{ packages_update_cache }}"
-    # cache_valid_time: "{{ package_cache_valid_time }}"
-    # install_recommends: "{{ item.apt_install_recommends | default(omit) }}"
-  when: ( item.apt_ignore | default('no') ) | string in 'False,false,No,no'
+# - name: install/remove with apt
+#   apt:
+#     name: "{{ item.apt | default(item.name) }}"
+#     state: "{{ item.state | default(package_state) }}"
+#     update_cache: "{{ packages_update_cache }}"
+#     # cache_valid_time: "{{ package_cache_valid_time }}"
+#     # install_recommends: "{{ item.apt_install_recommends | default(omit) }}"
+#   when: ( item.apt_ignore | default('no') ) | string in 'False,false,No,no'
+#   with_items: "{{ packages_list }}"
+
+
+- set_fact:
+    list_remove: []
+
+- set_fact:
+    list_remove: "{{ list_remove + [ item.apt | default(item.name) ] }}"
+  when: >
+        ( item.apt_ignore | default('no') ) | string in 'False,false,No,no'
+        and
+        item.state | default(package_state) == "absent"
   with_items: "{{ packages_list }}"
+
+# - debug:
+#     var: list_remove
+
+- name: remove with apt
+  apt:
+    name: "{{ list_remove }}"
+    state: "absent"
+  when: list_remove is defined and list_remove | length > 0
+  # with_items: "{{ list_remove }}"
+
+
+
+- set_fact:
+    list_add: []
+
+- set_fact:
+    list_add: "{{ list_add + [ item.apt | default(item.name) ] }}"
+  when: >
+        ( item.apt_ignore | default('no') ) | string in 'False,false,No,no'
+        and
+        item.state | default(package_state) == "present"
+  with_items: "{{ packages_list }}"
+
+# - debug:
+#     var: list_add
+
+- name: install with apt
+  apt:
+    name: "{{ list_add }}"
+    state: "present"
+    update_cache: "{{ packages_update_cache }}"
+  when: list_add is defined and list_add | length > 0
+  # with_items: "{{ list_add }}"

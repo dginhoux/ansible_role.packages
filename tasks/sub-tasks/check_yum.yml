@@ -9,8 +9,13 @@
 - name: yum show availables updates
   debug:
     msg: "{% set yum_output2 = [] %}\
-      {% for result in dnf_output.results %}\
-      {{ yum_output2.append( result.name ~ '-' ~ result.version ~ '-' ~ result.release ) }}\
-      {% endfor %}\
-      {{ yum_output2 }}"
-  when: yum_output.results is defined and yum_output.results is iterable and yum_output.results | length > 0
+        {% for result in dnf_output.results %}\
+        {  { yum_output2.append( result.name ~ '-' ~ result.version ~ '-' ~ result.release ) }}\
+        {% endfor %}\
+        {{ yum_output2 }}"
+  when: >
+        yum_output.results is defined
+        and
+        yum_output.results is iterable
+        and
+        yum_output.results | length > 0

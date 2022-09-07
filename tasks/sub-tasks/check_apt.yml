@@ -4,8 +4,10 @@
   apt:
     update_cache: yes
   # shell: apt-get --just-print upgrade 2>&1 | perl -ne 'if (/Inst\s([\w,\-,\d,\.,~,:,\+]+)\s\[([\w,\-,\d,\.,~,:,\+]+)\]\s\(([\w,\-,\d,\.,~,:,\+]+)\)? /i) {print "PROGRAM= $1 INSTALLED= $2 AVAILABLE= $3\n"}' | column -s ' ' -t
+  # register: apt_output
 
-- shell: apt list --upgradable
+- shell:
+    cmd: apt list --upgradable
   register: apt_output
 
 # - debug:
@@ -15,8 +17,14 @@
   # debug: msg="{{ apt_output }}"
   debug:
     msg: "{% set apt_output2 = [] %}\
-      {% for result in apt_output.stdout_lines %}\
-      {{ apt_output2.append( result ) }}\
-      {% endfor %}\
-      {{ apt_output2 }}"
-  when: apt_output.changed == true and apt_output.stdout != "Listing..."
+        {% for result in apt_output.stdout_lines %}\
+          {{ apt_output2.append( result ) }}\
+        {% endfor %}\
+        {{ apt_output2 }}"
+  when: >
+        apt_output.changed == true
+        and
+        apt_output.stdout != "Listing..."
+
+# - debug:
+#     msg: "{{ apt_output.stdout.split('\n') }}"
