@@ -2,10 +2,10 @@
 
 galaxy_info:
   role_name: ginhouxnet.packages
-  description: manage pakcage
+  description: manage packages
   author: dginhoux
   company: ginhouxnet
-  license: MIT
+  license: BSD
   min_ansible_version: "2.12"
   platforms:
     - name: Debian
