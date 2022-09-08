@@ -1,7 +1,7 @@
 ---
 
 galaxy_info:
-  role_name: ginhouxnet.packages
+  role_name: packages
   description: manage packages
   author: dginhoux
   company: ginhouxnet
