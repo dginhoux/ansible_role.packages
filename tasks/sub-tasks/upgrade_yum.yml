@@ -8,12 +8,14 @@
   register: yum_result
 
 # - name: List updated packages
-- shell: rpm -qa --last | grep "$(date +%a\ %d\ %b\ %Y)" | cut -f 1 -d " "
+- shell:
+    cmd: rpm -qa --last | grep "$(date +%a\ %d\ %b\ %Y)" | cut -f 1 -d " "
   register: rpm_result
   args:
     warn: no
   when: yum_result.changed == "true"
 
 - name: yum show upgrades
-  debug: msg="{{ rpm_result.stdout_lines }}"
+  debug:
+    msg: "{{ rpm_result.stdout_lines }}"
   when: yum_result.changed == "true"

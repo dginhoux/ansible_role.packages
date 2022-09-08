@@ -12,7 +12,6 @@
 
 - set_fact:
     list_remove: []
-
 - set_fact:
     list_remove: "{{ list_remove + [ item.apt | default(item.name) ] }}"
   when: >
@@ -21,21 +20,9 @@
         item.state | default(package_state) == "absent"
   with_items: "{{ packages_list }}"
 
-# - debug:
-#     var: list_remove
-
-- name: remove with apt
-  apt:
-    name: "{{ list_remove }}"
-    state: "absent"
-  when: list_remove is defined and list_remove | length > 0
-  # with_items: "{{ list_remove }}"
-
-
 
 - set_fact:
     list_add: []
-
 - set_fact:
     list_add: "{{ list_add + [ item.apt | default(item.name) ] }}"
   when: >
@@ -44,8 +31,13 @@
         item.state | default(package_state) == "present"
   with_items: "{{ packages_list }}"
 
-# - debug:
-#     var: list_add
+
+- name: remove with apt
+  apt:
+    name: "{{ list_remove }}"
+    state: "absent"
+  when: list_remove is defined and list_remove | length > 0
+
 
 - name: install with apt
   apt:
@@ -53,4 +45,3 @@
     state: "present"
     update_cache: "{{ packages_update_cache }}"
   when: list_add is defined and list_add | length > 0
-  # with_items: "{{ list_add }}"

@@ -4,18 +4,20 @@
   dnf:
     list: updates
     update_cache: yes
-  register: yum_output
+  register: output
 
 - name: yum show availables updates
   debug:
-    msg: "{% set yum_output2 = [] %}\
-        {% for result in dnf_output.results %}\
-        {  { yum_output2.append( result.name ~ '-' ~ result.version ~ '-' ~ result.release ) }}\
-        {% endfor %}\
-        {{ yum_output2 }}"
+    msg:  "\
+          {% set output2 = [] %}\
+            {% for pkg in output.results %}\
+              {{ output2.append( pkg.name ~ '-' ~ pkg.version ) }}\
+            {% endfor %}\
+          {{ output2 }}\
+          "
   when: >
-        yum_output.results is defined
+        output.results is defined
         and
-        yum_output.results is iterable
+        output.results is iterable
         and
-        yum_output.results | length > 0
+        output.results | length > 0
