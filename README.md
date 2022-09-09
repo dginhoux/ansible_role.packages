@@ -7,7 +7,7 @@ This ansible role manage linux packages
 Requirements
 ------------
 
-This ansible role will only run on platforms defined on meta/main.yml
+This role is built to only run on platforms defined in `meta/main.yml`
 
 
 Role Variables
@@ -37,5 +37,4 @@ BSD
 Author Information
 ------------------
 
-Dany GINHOUX 
 https://github.com/dginhoux/
