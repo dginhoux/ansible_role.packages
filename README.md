@@ -1,13 +1,13 @@
 ginhouxnet.packages
 =========
 
-This ansible role manage linux package
+This ansible role manage linux packages
 
 
 Requirements
 ------------
 
-This ansible role will only run on identified OS defined on meta/main.yml
+This ansible role will only run on platforms defined on meta/main.yml
 
 
 Role Variables
@@ -20,7 +20,7 @@ Read defaults/main.yml
 Dependencies
 ------------
 
-
+none
 
 
 Example Playbook
@@ -37,4 +37,5 @@ BSD
 Author Information
 ------------------
 
-Dany GINHOUX
+Dany GINHOUX 
+https://github.com/dginhoux/
