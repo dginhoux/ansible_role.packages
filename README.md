@@ -21,6 +21,24 @@ Role Variables
 
 Necessary variables are defined on `defaults/main.yml`
 
+```yaml
+# packages_action: upgrade
+packages_action: check
+# packages_action: autoremove
+# packages_action: clean
+# packages_action: install
+
+
+packages_update_cache: yes
+
+
+packages_list:
+  - { name: bc, state: present } 
+  - { name: ca-certificates, state: present }
+  - { name: curl, state: present }
+  - { name: dos2unix, state: present }
+  - { name: ethtool, state: present }
+```
 
 
 Dependencies
