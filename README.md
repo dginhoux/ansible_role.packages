@@ -1,4 +1,4 @@
-ginhouxnet.packages
+Ansible Role : dginhoux.packages
 =========
 
 This ansible role manage linux packages.
