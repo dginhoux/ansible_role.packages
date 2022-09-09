@@ -1,7 +1,13 @@
 ginhouxnet.packages
 =========
 
-This ansible role manage linux packages
+This ansible role manage linux packages.
+It can be used for : 
+* install and remove packages
+* check for update
+* upgrades packages
+* clean cache
+* autoremove
 
 
 Requirements
