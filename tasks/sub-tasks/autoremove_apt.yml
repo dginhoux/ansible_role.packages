@@ -1,5 +1,4 @@
 ---
-
 - name: apt autoremove
   apt:
-    autoremove: "yes"
+    autoremove: true

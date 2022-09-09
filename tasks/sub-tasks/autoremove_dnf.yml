@@ -1,5 +1,4 @@
 ---
-
 - name: dnf autoremove
   dnf:
-    autoremove: "yes"
+    autoremove: true

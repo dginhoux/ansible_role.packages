@@ -1,23 +1,22 @@
 ---
-
 - name: yum check updates
   dnf:
     list: updates
-    update_cache: yes
+    update_cache: true
   register: output
 
 - name: yum show availables updates
   debug:
-    msg:  "\
-          {% set output2 = [] %}\
-            {% for pkg in output.results %}\
-              {{ output2.append( pkg.name ~ '-' ~ pkg.version ) }}\
-            {% endfor %}\
-          {{ output2 }}\
-          "
+    msg: "\
+      {% set output2 = [] %}\
+      {% for pkg in output.results %}\
+      {{ output2.append( pkg.name ~ '-' ~ pkg.version ) }}\
+      {% endfor %}\
+      {{ output2 }}\
+      "
   when: >
-        output.results is defined
-        and
-        output.results is iterable
-        and
-        output.results | length > 0
+    output.results is defined
+    and
+    output.results is iterable
+    and
+    output.results | length > 0

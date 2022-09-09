@@ -1,5 +1,4 @@
 ---
-
 - name: yum autoremove
   yum:
-    autoremove: "yes"
+    autoremove: true

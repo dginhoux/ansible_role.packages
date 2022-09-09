@@ -1,14 +1,9 @@
 ---
-
 - block:
     - include_tasks:
         file: "{{ packages_action_tasks_file }}"
       with_first_found:
         - files:
-            # - "{{ packages_action }}_{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
-            # - "{{ packages_action }}_{{ ansible_distribution }}.yml"
-            # - "{{ packages_action }}_{{ ansible_os_family }}.yml"
-            # - "{{ packages_action }}_{{ ansible_system }}.yml"
             - "{{ packages_action }}_{{ ansible_pkg_mgr }}.yml"
             - "sub.yml"
           paths:

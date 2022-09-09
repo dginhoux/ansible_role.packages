@@ -1,5 +1,4 @@
 ---
-
 galaxy_info:
   role_name: packages
   description: manage packages
@@ -29,6 +28,5 @@ galaxy_info:
     - yum
     - dnf
     - apt
-
 
 dependencies: []

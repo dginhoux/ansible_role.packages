@@ -1,5 +1,4 @@
 ---
-
 # - name: install/remove with yum
 #   yum:
 #     name: "{{ item.yum | default(item.name) }}"
@@ -8,35 +7,31 @@
 #   when: ( item.yum_ignore | default('no') ) | string in 'False,false,No,no'
 #   with_items: "{{ packages_list }}"
 
-
 - set_fact:
     list_remove: []
 - set_fact:
     list_remove: "{{ list_remove + [ item.yum | default(item.name) ] }}"
   when: >
-        ( item.yum_ignore | default('no') ) | string in 'False,false,No,no'
-        and
-        item.state | default(package_state) == "absent"
+    ( item.yum_ignore | default('no') ) | string in 'False,false,No,no'
+    and
+    item.state | default(package_state) == "absent"
   with_items: "{{ packages_list }}"
-
 
 - set_fact:
     list_add: []
 - set_fact:
     list_add: "{{ list_add + [ item.yum | default(item.name) ] }}"
   when: >
-        ( item.yum_ignore | default('no') ) | string in 'False,false,No,no'
-        and
-        item.state | default(package_state) == "present"
+    ( item.yum_ignore | default('no') ) | string in 'False,false,No,no'
+    and
+    item.state | default(package_state) == "present"
   with_items: "{{ packages_list }}"
-
 
 - name: remove with yum
   yum:
     name: "{{ list_remove }}"
     state: "absent"
   when: list_remove is defined and list_remove | length > 0
-
 
 - name: install with yum
   yum:

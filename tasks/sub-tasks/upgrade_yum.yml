@@ -1,9 +1,8 @@
 ---
-
 - name: yum install updates
   yum:
     name: "*"
-    update_cache: yes
+    update_cache: true
     state: latest
   register: yum_result
 
@@ -12,7 +11,7 @@
     cmd: rpm -qa --last | grep "$(date +%a\ %d\ %b\ %Y)" | cut -f 1 -d " "
   register: rpm_result
   args:
-    warn: no
+    warn: false
   when: yum_result.changed == "true"
 
 - name: yum show upgrades
