@@ -1,12 +1,12 @@
 ---
-- block:
-    - include_tasks:
-        file: "{{ packages_action_tasks_file }}"
-      with_first_found:
-        - files:
-            - "{{ packages_action }}_{{ ansible_pkg_mgr }}.yml"
-            - "sub.yml"
-          paths:
-            - "tasks/sub-tasks"
-      loop_control:
-        loop_var: packages_action_tasks_file
+- name: include {{ packages_action }} with {{ ansible_pkg_mgr }} tasks
+  include_tasks:
+    file: "{{ packages_action_tasks_file }}"
+  with_first_found:
+    - files:
+        - "{{ packages_action }}_{{ ansible_pkg_mgr }}.yml"
+        - "sub.yml"
+      paths:
+        - "tasks/sub-tasks"
+  loop_control:
+    loop_var: packages_action_tasks_file
