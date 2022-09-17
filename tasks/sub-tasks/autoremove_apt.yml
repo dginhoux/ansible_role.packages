@@ -1,4 +1,4 @@
 ---
 - name: apt autoremove
-  apt:
+  ansible.builtin.apt:
     autoremove: true

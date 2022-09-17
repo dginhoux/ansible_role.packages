@@ -1,4 +1,4 @@
 ---
 - name: yum clean all
-  shell: yum clean all
+  ansible.builtin.shell: yum clean all
   no_log: true

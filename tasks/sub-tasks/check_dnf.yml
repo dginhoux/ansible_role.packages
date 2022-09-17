@@ -1,12 +1,12 @@
 ---
 - name: dnf check updates
-  dnf:
+  ansible.builtin.dnf:
     list: updates
     update_cache: true
   register: output
 
 - name: dnf show availables updates
-  debug:
+  ansible.builtin.debug:
     msg: "\
       {% set output2 = [] %}\
       {% for pkg in output.results %}\

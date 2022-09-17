@@ -1,6 +1,6 @@
 ---
 # - name: install/remove with apt
-#   apt:
+#   ansible.builtin.apt:
 #     name: "{{ item.apt | default(item.name) }}"
 #     state: "{{ item.state | default(package_state) }}"
 #     update_cache: "{{ packages_update_cache }}"
@@ -9,9 +9,9 @@
 #   when: ( item.apt_ignore | default('no') ) | string in 'False,false,No,no'
 #   with_items: "{{ packages_list }}"
 
-- set_fact:
+- ansible.builtin.set_fact:
     list_remove: []
-- set_fact:
+- ansible.builtin.set_fact:
     list_remove: "{{ list_remove + [ item.apt | default(item.name) ] }}"
   when: >
     ( item.apt_ignore | default('no') ) | string in 'False,false,No,no'
@@ -19,9 +19,9 @@
     item.state | default(package_state) == "absent"
   with_items: "{{ packages_list }}"
 
-- set_fact:
+- ansible.builtin.set_fact:
     list_add: []
-- set_fact:
+- ansible.builtin.set_fact:
     list_add: "{{ list_add + [ item.apt | default(item.name) ] }}"
   when: >
     ( item.apt_ignore | default('no') ) | string in 'False,false,No,no'
@@ -30,13 +30,13 @@
   with_items: "{{ packages_list }}"
 
 - name: remove with apt
-  apt:
+  ansible.builtin.apt:
     name: "{{ list_remove }}"
     state: "absent"
   when: list_remove is defined and list_remove | length > 0
 
 - name: install with apt
-  apt:
+  ansible.builtin.apt:
     name: "{{ list_add }}"
     state: "present"
     update_cache: "{{ packages_update_cache }}"

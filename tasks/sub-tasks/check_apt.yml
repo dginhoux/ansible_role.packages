@@ -1,16 +1,16 @@
 ---
 - name: apt check updates
-  apt:
+  ansible.builtin.apt:
     update_cache: true
 
 - name: apt list upgradable
-  shell:
+  ansible.builtin.shell:
     cmd: apt list --upgradable
   register: output
   changed_when: output.stdout_lines | length > 1
 
 - name: apt show availables updates
-  debug:
+  ansible.builtin.debug:
     msg: "\
       {% set output2 = [] %}\
       {% for line in output.stdout_lines %}\

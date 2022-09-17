@@ -1,18 +1,18 @@
 ---
 - name: apt install updates
-  apt:
+  ansible.builtin.apt:
     upgrade: dist
     update_cache: true
     autoremove: true
     autoclean: true
   register: apt_result
 
-- shell:
+- ansible.builtin.shell:
     cmd: grep -E "^$(date +%Y-%m-%d).+ (install|upgrade) " /var/log/dpkg.log | cut -d " " -f 3-5
   register: apt_logfile
   when: apt_result.changed == "true"
 
 - name: apt show upgrades
-  debug:
+  ansible.builtin.debug:
     msg: "{{ apt_logfile.stdout_lines }}"
   when: apt_result.changed == "true"

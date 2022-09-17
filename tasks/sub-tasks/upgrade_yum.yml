@@ -1,13 +1,13 @@
 ---
 - name: yum install updates
-  yum:
+  ansible.builtin.yum:
     name: "*"
     update_cache: true
     state: latest
   register: yum_result
 
 # - name: List updated packages
-- shell:
+- ansible.builtin.shell:
     cmd: rpm -qa --last | grep "$(date +%a\ %d\ %b\ %Y)" | cut -f 1 -d " "
   register: rpm_result
   args:
@@ -15,6 +15,6 @@
   when: yum_result.changed == "true"
 
 - name: yum show upgrades
-  debug:
+  ansible.builtin.debug:
     msg: "{{ rpm_result.stdout_lines }}"
   when: yum_result.changed == "true"
