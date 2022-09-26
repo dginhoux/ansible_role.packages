@@ -14,7 +14,7 @@
     msg: "\
       {% set output2 = [] %}\
       {% for line in output.stdout_lines %}\
-      {% if line != 'Listing...' %}\
+      {% if line != 'Listing...' or line != 'En train de lister...' %}\
       {{ output2.append( line ) }}\
       {% endif %}\
       {% endfor %}\

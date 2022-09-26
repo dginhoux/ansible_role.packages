@@ -1,0 +1,10 @@
+---
+
+
+- name: minimum disk space check
+  ansible.builtin.assert:
+    that:
+      - item.size_available > item.size_total|float * (1 - my_disk_slash_space_max/100)
+  when: item.mount == "/"
+  with_items:
+    - "{{ ansible_mounts }}"
