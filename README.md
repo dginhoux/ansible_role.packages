@@ -1,8 +1,11 @@
-Ansible Role : dginhoux.packages
-=========
+# ROLE dginhoux.packages
 
-This ansible role manage linux packages.
-It can be used for : 
+
+
+## DESCRIPTION
+
+This ansible role manage linux packages.<br />
+It can be used for : <br />
 * install and remove packages
 * check for update
 * upgrades packages
@@ -10,17 +13,62 @@ It can be used for :
 * autoremove
 
 
-Requirements
-------------
+## REQUIREMENTS
 
-This role require a supported platform defined in `meta/main.yml`.
-It will skip node with unsupported platform ; this behaviour can be bypassed by settings this variable `asserts_bypass=True`.
+#### SUPPORTED PLATFORMS
+
+This role require a supported platform.<br />
+It will skip node with unsupported platform to avoid any compatibility problem.<br />
+This behaviour can be bypassed by settings the following variable `asserts_bypass=True`.
+
+| Platform | Versions |
+|----------|----------|
+| Debian | buster, bullseye |
+| Fedora | 33, 34, 35, 36 |
+| EL | 7, 8 |
+
+#### ANSIBLE VERSION
+
+Ansible >= 2.12
+
+#### DEPENDENCIES
+
+None.
 
 
-Role Variables
---------------
 
-Necessary variables are defined on `defaults/main.yml`
+## INSTALLATION
+
+#### ANSIBLE GALAXY
+
+```shell
+ansible-galaxy install dginhoux.packages
+```
+#### GIT
+
+```shell
+git clone https://github.com/dginhoux/ansible_role.packages dginhoux.packages
+```
+
+
+## USAGE
+
+#### EXAMPLE PLAYBOOK
+
+```yaml
+- hosts: all
+  roles:
+    - name: start role dginhoux.packages
+      ansible.builtin.include_role:
+        name: dginhoux.packages
+```
+
+
+## VARIABLES
+
+#### DEFAULT VARIABLES
+
+Defaults variables defined in `defaults/main.yml` : 
 
 ```yaml
 # packages_action: upgrade
@@ -72,25 +120,21 @@ packages_list:
   - { name: wget, state: present }
 ```
 
+#### DEFAULT OS SPECIFIC VARIABLES
 
-Dependencies
-------------
+Those variables files are located in `vars/*.yml` are used to handle OS differences.<br />
+One of theses is loaded dynamically during role runtime using the `include_vars` module and set OS specifics variable's.
 
-none
-
-
-Example Playbook
-----------------
+`NOT USED BY THIS ROLE`
 
 
 
-License
--------
+## AUTHOR
 
-BSD
+Dany GINHOUX - https://github.com/dginhoux
 
 
-Author Information
-------------------
 
-https://github.com/dginhoux/
+## LICENSE
+
+MIT
