@@ -1,7 +1,8 @@
 ---
 galaxy_info:
   role_name: packages
-  description: dginhoux.packages
+  description: |
+    This ansible role manage linux packages.
   author: Dany GINHOUX
   company: dginhoux
   license: MIT
