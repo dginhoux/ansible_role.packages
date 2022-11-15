@@ -7,33 +7,41 @@
 #   when: ( item.yum_ignore | default('no') ) | string in 'False,false,No,no'
 #   with_items: "{{ packages_list }}"
 
-- ansible.builtin.set_fact:
+
+- name: Yum init removal packages list
+  ansible.builtin.set_fact:
     list_remove: []
-- ansible.builtin.set_fact:
-    list_remove: "{{ list_remove + [ item.yum | default(item.name) ] }}"
+
+- name: Yum populate removal packages list
+  ansible.builtin.set_fact:
+    list_remove: "{{ list_remove + [item.yum | default(item.name)] }}"
   when: >
     ( item.yum_ignore | default('no') ) | string in 'False,false,No,no'
     and
     item.state | default(package_state) == "absent"
   with_items: "{{ packages_list }}"
 
-- ansible.builtin.set_fact:
+- name: Yum remove packages
+  ansible.builtin.yum:
+    name: "{{ list_remove }}"
+    state: "absent"
+  when: list_remove is defined and list_remove | length > 0
+
+
+- name: Yum init install packages list
+  ansible.builtin.set_fact:
     list_add: []
-- ansible.builtin.set_fact:
-    list_add: "{{ list_add + [ item.yum | default(item.name) ] }}"
+
+- name: Yum populate install packages list
+  ansible.builtin.set_fact:
+    list_add: "{{ list_add + [item.yum | default(item.name)] }}"
   when: >
     ( item.yum_ignore | default('no') ) | string in 'False,false,No,no'
     and
     item.state | default(package_state) == "present"
   with_items: "{{ packages_list }}"
 
-- name: remove with yum
-  ansible.builtin.yum:
-    name: "{{ list_remove }}"
-    state: "absent"
-  when: list_remove is defined and list_remove | length > 0
-
-- name: install with yum
+- name: Yum install packages
   ansible.builtin.yum:
     name: "{{ list_add }}"
     state: "present"

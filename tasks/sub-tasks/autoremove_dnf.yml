@@ -1,4 +1,4 @@
 ---
-- name: dnf autoremove
+- name: Dnf autoremove
   ansible.builtin.dnf:
     autoremove: true

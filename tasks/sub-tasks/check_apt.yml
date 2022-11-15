@@ -1,21 +1,21 @@
 ---
-- name: apt check updates
+- name: Apt check updates
   ansible.builtin.apt:
     update_cache: true
 
-- name: apt list upgradable
+- name: Apt list upgradable
   ansible.builtin.shell:
     cmd: apt list --upgradable
   register: output
   changed_when: output.stdout_lines | length > 1
 
-- name: apt show availables updates
+- name: Apt show availables updates
   ansible.builtin.debug:
     msg: "\
       {% set output2 = [] %}\
       {% for line in output.stdout_lines %}\
       {% if line != 'Listing...' or line != 'En train de lister...' %}\
-      {{ output2.append( line ) }}\
+      {{ output2.append(line) }}\
       {% endif %}\
       {% endfor %}\
       {{ output2 }}\

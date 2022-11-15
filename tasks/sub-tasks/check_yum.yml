@@ -1,11 +1,11 @@
 ---
-- name: yum check updates
+- name: Yum check updates
   ansible.builtin.dnf:
     list: updates
     update_cache: true
   register: output
 
-- name: yum show availables updates
+- name: Yum show availables updates
   ansible.builtin.debug:
     msg: "\
       {% set output2 = [] %}\

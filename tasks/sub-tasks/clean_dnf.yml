@@ -1,4 +1,5 @@
 ---
-- name: dnf clean all
-  ansible.builtin.shell: dnf clean all
+- name: Dnf clean all
+  ansible.builtin.shell:
+    cmd: dnf clean all
   no_log: true

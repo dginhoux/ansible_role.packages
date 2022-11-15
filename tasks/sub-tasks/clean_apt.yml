@@ -3,6 +3,6 @@
 #   ansible.builtin.shell: apt clean all
 #   no_log: true
 
-- name: apt clean all
+- name: Apt clean all
   ansible.builtin.apt:
     clean: true
