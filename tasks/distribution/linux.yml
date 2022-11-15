@@ -1,5 +1,5 @@
 ---
-- name: include {{ packages_action }} with {{ ansible_pkg_mgr }} tasks
+- name: "Include {{ packages_action }} with {{ ansible_pkg_mgr }} tasks"
   ansible.builtin.include_tasks:
     file: "{{ packages_action_tasks_file }}"
   with_first_found:
