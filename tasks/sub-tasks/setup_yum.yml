@@ -13,19 +13,20 @@
     list_remove: []
 
 - name: Yum populate removal packages list
+  when:
+    - ( item.yum_ignore | default('no') ) | string in 'False,false,No,no'
+    - item.state | default(package_state) == "absent"
+  with_items: "{{ packages_list }}"
   ansible.builtin.set_fact:
     list_remove: "{{ list_remove + [item.yum | default(item.name)] }}"
-  when: >
-    ( item.yum_ignore | default('no') ) | string in 'False,false,No,no'
-    and
-    item.state | default(package_state) == "absent"
-  with_items: "{{ packages_list }}"
 
 - name: Yum remove packages
+  when:
+    - list_remove is defined
+    - list_remove | length > 0
   ansible.builtin.yum:
     name: "{{ list_remove }}"
     state: "absent"
-  when: list_remove is defined and list_remove | length > 0
 
 
 - name: Yum init install packages list
@@ -33,17 +34,18 @@
     list_add: []
 
 - name: Yum populate install packages list
+  when:
+    - ( item.yum_ignore | default('no') ) | string in 'False,false,No,no'
+    - item.state | default(package_state) == "present"
+  with_items: "{{ packages_list }}"
   ansible.builtin.set_fact:
     list_add: "{{ list_add + [item.yum | default(item.name)] }}"
-  when: >
-    ( item.yum_ignore | default('no') ) | string in 'False,false,No,no'
-    and
-    item.state | default(package_state) == "present"
-  with_items: "{{ packages_list }}"
 
 - name: Yum install packages
+  when:
+    - list_add is defined
+    - list_add | length > 0
   ansible.builtin.yum:
     name: "{{ list_add }}"
     state: "present"
     update_cache: "{{ packages_update_cache }}"
-  when: list_add is defined and list_add | length > 0

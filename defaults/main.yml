@@ -8,7 +8,7 @@ packages_action: check
 packages_update_cache: true
 
 packages_list:
-  - { name: bc, state: present } 
+  - { name: bc, state: present }
   - { name: ca-certificates, state: present }
   - { name: curl, state: present }
   - { name: dos2unix, state: present }

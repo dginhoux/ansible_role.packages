@@ -1,11 +1,15 @@
 ---
 - name: Yum check updates
+  register: output
   ansible.builtin.dnf:
     list: updates
     update_cache: true
-  register: output
 
 - name: Yum show availables updates
+  when:
+    - output.results is defined
+    - output.results is iterable
+    - output.results | length > 0
   ansible.builtin.debug:
     msg: "\
       {% set output2 = [] %}\
@@ -14,9 +18,3 @@
       {% endfor %}\
       {{ output2 }}\
       "
-  when: >
-    output.results is defined
-    and
-    output.results is iterable
-    and
-    output.results | length > 0

@@ -4,12 +4,15 @@
     update_cache: true
 
 - name: Apt list upgradable
-  ansible.builtin.shell:
-    cmd: apt list --upgradable
   register: output
   changed_when: output.stdout_lines | length > 1
+  ansible.builtin.shell:
+    cmd: apt list --upgradable
 
 - name: Apt show availables updates
+  when:
+    - output.stdout_lines is defined
+    - output.stdout_lines | length > 1
   ansible.builtin.debug:
     msg: "\
       {% set output2 = [] %}\
@@ -20,7 +23,3 @@
       {% endfor %}\
       {{ output2 }}\
       "
-  when: >
-    output.stdout_lines is defined
-    and
-    output.stdout_lines | length > 1

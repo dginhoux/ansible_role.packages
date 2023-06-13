@@ -1,7 +1,5 @@
 ---
 - name: "Include {{ packages_action }} with {{ ansible_pkg_mgr }} tasks"
-  ansible.builtin.include_tasks:
-    file: "{{ packages_action_tasks_file }}"
   with_first_found:
     - files:
         - "{{ packages_action }}_{{ ansible_pkg_mgr }}.yml"
@@ -10,3 +8,5 @@
         - "tasks/sub-tasks"
   loop_control:
     loop_var: packages_action_tasks_file
+  ansible.builtin.include_tasks:
+    file: "{{ packages_action_tasks_file }}"
