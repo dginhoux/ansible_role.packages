@@ -23,7 +23,7 @@
     list_remove: "{{ list_remove + [item.apt | default(item.name)] }}"
 
 - name: Apt remove packages
-  when: 
+  when:
     - list_remove is defined
     - list_remove | length > 0
   ansible.builtin.apt:
