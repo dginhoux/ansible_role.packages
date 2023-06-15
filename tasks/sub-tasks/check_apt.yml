@@ -6,7 +6,7 @@
 - name: Apt list upgradable
   register: output
   changed_when: output.stdout_lines | length > 1
-  ansible.builtin.shell:
+  ansible.builtin.command:
     cmd: apt list --upgradable
 
 - name: Apt show availables updates

@@ -1,6 +1,6 @@
 ---
 # - name: apt clean all
-#   ansible.builtin.shell: apt clean all
+#   ansible.builtin.command: apt clean all
 #   no_log: true
 
 - name: Apt clean all

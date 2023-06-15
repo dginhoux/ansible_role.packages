@@ -10,7 +10,7 @@
 - name: Apt get upgraded packages
   when: apt_result.changed == "true"
   register: apt_logfile
-  ansible.builtin.shell:
+  ansible.builtin.command:
     cmd: grep -E "^$(date +%Y-%m-%d).+ (install|upgrade) " /var/log/dpkg.log | cut -d " " -f 3-5
 
 - name: Apt show upgrades

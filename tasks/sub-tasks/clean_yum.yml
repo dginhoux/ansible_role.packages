@@ -1,5 +1,5 @@
 ---
 - name: Yum clean all
   no_log: true
-  ansible.builtin.shell:
+  ansible.builtin.command:
     cmd: yum clean all
