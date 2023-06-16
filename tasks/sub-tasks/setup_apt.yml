@@ -16,7 +16,8 @@
 
 - name: Apt  populate removal packages list
   when:
-    - ( item.apt_ignore | default('no') ) | string in 'False,false,No,no'
+    # - ( item.apt_ignore | default('no') ) | string in 'False,false,No,no'
+    - not ( item.apt_ignore | default(false) )
     - item.state | default(package_state) == "absent"
   with_items: "{{ packages_list }}"
   ansible.builtin.set_fact:
@@ -37,7 +38,8 @@
 
 - name: Apt populate install packages list
   when:
-    - ( item.apt_ignore | default('no') ) | string in 'False,false,No,no'
+    # - ( item.apt_ignore | default('no') ) | string in 'False,false,No,no'
+    - not ( item.apt_ignore | default(false) )
     - item.state | default(package_state) == "present"
   with_items: "{{ packages_list }}"
   ansible.builtin.set_fact:
