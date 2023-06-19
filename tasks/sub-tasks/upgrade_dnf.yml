@@ -7,7 +7,7 @@
     state: latest
 
 - name: Dnf get upgraded packages
-  when: dnf_result.changed == "true"
+  when: dnf_result.changed
   register: rpm_result
   args:
     warn: false
@@ -15,6 +15,6 @@
     cmd: rpm -qa --last | grep "$(date +%a\ %d\ %b\ %Y)" | cut -f 1 -d " "
 
 - name: Dnf show upgrades
-  when: dnf_result.changed == "true"
+  when: dnf_result.changed
   ansible.builtin.debug:
     msg: "{{ rpm_result.stdout_lines }}"
