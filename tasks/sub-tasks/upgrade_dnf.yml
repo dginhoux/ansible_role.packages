@@ -9,10 +9,10 @@
 - name: Dnf get upgraded packages
   when: dnf_result.changed
   register: rpm_result
-  args:
-    warn: false
+  # args:
+  #   warn: false
   ansible.builtin.command:
-    cmd: rpm -qa --last | grep "$(date +%a\ %d\ %b\ %Y)" | cut -f 1 -d " "
+    cmd: 'rpm -qa --last | grep "$(date +%a\ %d\ %b\ %Y)" | cut -f 1 -d " "'
 
 - name: Dnf show upgrades
   when: dnf_result.changed

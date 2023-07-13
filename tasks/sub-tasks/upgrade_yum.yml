@@ -9,10 +9,10 @@
 - name: Yum get upgraded packages
   when: yum_result.changed
   register: rpm_result
-  args:
-    warn: false
+  # args:
+  #   warn: false
   ansible.builtin.command:
-    cmd: rpm -qa --last | grep "$(date +%a\ %d\ %b\ %Y)" | cut -f 1 -d " "
+    cmd: 'rpm -qa --last | grep "$(date +%a\ %d\ %b\ %Y)" | cut -f 1 -d " "'
 
 - name: Yum show upgrades
   when: yum_result.changed
