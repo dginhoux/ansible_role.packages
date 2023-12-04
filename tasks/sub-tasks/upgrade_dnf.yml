@@ -11,7 +11,7 @@
   register: rpm_result
   # args:
   #   warn: false
-  ansible.builtin.command:
+  ansible.builtin.shell:
     cmd: 'rpm -qa --last | grep "$(date +%a\ %d\ %b\ %Y)" | cut -f 1 -d " "'
 
 - name: Dnf show upgrades
