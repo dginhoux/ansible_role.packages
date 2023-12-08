@@ -17,7 +17,7 @@
     # - ( item.yum_ignore | default('no') ) | string in 'False,false,No,no'
     - not ( item.yum_ignore | default(false) )
     - item.state | default(package_state) == "absent"
-  with_items: "{{ packages_list }}"
+  loop: "{{ packages_list + packages_list_host + packages_list_group | flatten(levels=1) }}"
   ansible.builtin.set_fact:
     list_remove: "{{ list_remove + [item.yum | default(item.name)] }}"
 
@@ -39,7 +39,7 @@
     # - ( item.yum_ignore | default('no') ) | string in 'False,false,No,no'
     - not ( item.yum_ignore | default(false) )
     - item.state | default(package_state) == "present"
-  with_items: "{{ packages_list }}"
+  loop: "{{ packages_list + packages_list_host + packages_list_group | flatten(levels=1) }}"
   ansible.builtin.set_fact:
     list_add: "{{ list_add + [item.yum | default(item.name)] }}"
 
