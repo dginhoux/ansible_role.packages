@@ -24,6 +24,7 @@
     list_remove: "{{ list_remove + [item.apt | default(item.name)] }}"
 
 - name: Apt remove packages
+  become: true
   when:
     - list_remove is defined
     - list_remove | length > 0
@@ -46,6 +47,7 @@
     list_add: "{{ list_add + [item.apt | default(item.name)] }}"
 
 - name: Apt install packages
+  become: true
   when:
     - list_add is defined
     - list_add | length > 0

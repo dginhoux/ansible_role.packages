@@ -1,5 +1,6 @@
 ---
 - name: Yum install updates
+  become: true
   register: yum_result
   ansible.builtin.yum:
     name: "*"
@@ -7,6 +8,7 @@
     state: latest
 
 - name: Yum get upgraded packages
+  become: true
   when: yum_result.changed
   register: rpm_result
   # args:

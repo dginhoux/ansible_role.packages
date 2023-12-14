@@ -1,4 +1,5 @@
 ---
 - name: Yum autoremove
+  become: true
   ansible.builtin.yum:
     autoremove: true

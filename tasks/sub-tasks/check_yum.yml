@@ -1,5 +1,6 @@
 ---
 - name: Yum check updates
+  become: true
   register: output
   ansible.builtin.dnf:
     list: updates

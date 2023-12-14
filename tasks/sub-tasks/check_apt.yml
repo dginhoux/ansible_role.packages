@@ -1,9 +1,11 @@
 ---
 - name: Apt check updates
+  become: true
   ansible.builtin.apt:
     update_cache: true
 
 - name: Apt list upgradable
+  become: true
   register: output
   changed_when: output.stdout_lines | length > 1
   ansible.builtin.command:
