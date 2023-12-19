@@ -3,10 +3,13 @@
 packages_action: check
 # packages_action: autoremove
 # packages_action: clean
-# packages_action: install
+# packages_action: setup
 
 packages_update_cache: true
 
+packages_list: []
+packages_list_host: []
+packages_list_group: []
 # packages_list:
 #   - { name: bc, state: present }
 #   - { name: ca-certificates, state: present }
@@ -49,7 +52,3 @@ packages_update_cache: true
 #   - { name: vim, state: present }
 #   - { name: yamllint, state: present }
 #   - { name: wget, state: present }
-
-packages_list: []
-packages_list_host: []
-packages_list_group: []

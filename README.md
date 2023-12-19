@@ -50,15 +50,28 @@ git clone https://github.com/dginhoux/ansible_role.packages dginhoux.packages
 
 ## USAGE
 
-#### EXAMPLE PLAYBOOK
+#### EXAMPLES PLAYBOOKS
 
 ```yaml
 - hosts: all
   roles:
-    - name: start role dginhoux.packages
+    - name: Start role dginhoux.packages to setup "packages_list, packages_list_host and packages_list_group".
+      vars:
+        packages_action: setup
       ansible.builtin.include_role:
         name: dginhoux.packages
 ```
+
+```yaml
+- hosts: all
+  roles:
+    - name: Start role dginhoux.packages to check for availables upgrades
+      vars:
+        packages_action: check
+      ansible.builtin.include_role:
+        name: dginhoux.packages
+```
+
 
 
 ## VARIABLES
@@ -72,10 +85,7 @@ Defaults variables defined in `defaults/main.yml` :
 packages_action: check
 # packages_action: autoremove
 # packages_action: clean
-# packages_action: install
-
-
-packages_update_cache: yes
+# packages_action: setup
 
 
 packages_list:
@@ -115,7 +125,15 @@ packages_list:
   - { name: vim, state: present }
   - { name: yamllint, state: present }
   - { name: wget, state: present }
+
+packages_list_host: []
+packages_list_group: []
 ```
+
+NOTE : Theses 3 lists `packages_list`, `packages_list_group` and `packages_list_host` are merged. <br />
+You can use the host and group lists to specify users per host or group off hosts.
+
+
 
 #### DEFAULT OS SPECIFIC VARIABLES
 
