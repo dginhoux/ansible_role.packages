@@ -53,8 +53,9 @@ git clone https://github.com/dginhoux/ansible_role.packages dginhoux.packages
 #### EXAMPLES PLAYBOOKS
 
 ```yaml
-- hosts: all
-  roles:
+- name: Playbook
+  hosts: all
+  tasks:
     - name: Start role dginhoux.packages to setup "packages_list, packages_list_host and packages_list_group".
       vars:
         packages_action: setup
@@ -63,8 +64,9 @@ git clone https://github.com/dginhoux/ansible_role.packages dginhoux.packages
 ```
 
 ```yaml
-- hosts: all
-  roles:
+- name: Playbook
+  hosts: all
+  tasks:
     - name: Start role dginhoux.packages to check for availables upgrades
       vars:
         packages_action: check
@@ -78,7 +80,10 @@ git clone https://github.com/dginhoux/ansible_role.packages dginhoux.packages
 
 #### DEFAULT VARIABLES
 
-Defaults variables defined in `defaults/main.yml` : 
+Defaults variables defined in `defaults/main.yml`
+
+
+#### EXAMPLES VARIABLES
 
 ```yaml
 # packages_action: upgrade
