@@ -131,7 +131,7 @@ packages_list_group: []
 ```
 
 NOTE : Theses 3 lists `packages_list`, `packages_list_group` and `packages_list_host` are merged. <br />
-You can use the host and group lists to specify users per host or group off hosts.
+You can use the `_host` and `_group` lists to specify per host and/or per group content.
 
 
 
