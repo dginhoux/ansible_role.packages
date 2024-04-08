@@ -1,0 +1,10 @@
+---
+- name: Apt download updates
+  become: true
+  register: apt_result
+  ansible.builtin.shell:
+    cmd: "apt upgrade --download-only"
+
+- name: Apt show downloads
+  ansible.builtin.debug:
+    msg: "{{ apt_result.stdout_lines }}"

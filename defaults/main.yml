@@ -4,6 +4,7 @@ packages_action: check
 # packages_action: autoremove
 # packages_action: clean
 # packages_action: setup
+# packages_action: download
 
 packages_update_cache: true
 

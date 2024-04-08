@@ -8,7 +8,7 @@
     autoremove: true
     autoclean: true
 
-- name: Apt get upgraded packages
+- name: Apt upgraded packages
   become: true
   when: apt_result.changed
   register: apt_logfile

@@ -1,0 +1,13 @@
+---
+- name: Dnf download updates
+  become: true
+  register: dnf_result
+  ansible.builtin.dnf:
+    name: "*"
+    update_cache: true
+    state: latest
+    download_only: true
+
+- name: Dnf show downloads
+  ansible.builtin.debug:
+    msg: "{{ dnf_result.results }}"

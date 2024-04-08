@@ -1,0 +1,13 @@
+---
+- name: Yum download updates
+  become: true
+  register: yum_result
+  ansible.builtin.yum:
+    name: "*"
+    update_cache: true
+    state: latest
+    download_only: true
+
+- name: Yum show downloads
+  ansible.builtin.debug:
+    msg: "{{ yum_result.results }}"
