@@ -9,6 +9,7 @@ It can be used for : <br />
 * install and remove packages
 * check for update
 * upgrades packages
+* download upgrades
 * clean cache
 * autoremove
 
@@ -91,6 +92,7 @@ packages_action: check
 # packages_action: autoremove
 # packages_action: clean
 # packages_action: setup
+# packages_action: download
 
 
 packages_list:
