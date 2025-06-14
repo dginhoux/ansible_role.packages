@@ -1,0 +1,21 @@
+---
+- name: Dnf check updates
+  become: true
+  register: output
+  ansible.builtin.dnf5:
+    list: updates
+    update_cache: true
+
+- name: Dnf show availables updates
+  when:
+    - output.results is defined
+    - output.results is iterable
+    - output.results | length > 0
+  ansible.builtin.debug:
+    msg: "\
+      {% set output2 = [] %}\
+      {% for pkg in output.results %}\
+      {{ output2.append( pkg.name ~ '-' ~ pkg.version ) }}\
+      {% endfor %}\
+      {{ output2 }}\
+      "

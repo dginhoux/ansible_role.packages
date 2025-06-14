@@ -1,0 +1,5 @@
+---
+- name: Dnf autoremove
+  become: true
+  ansible.builtin.dnf5:
+    autoremove: true

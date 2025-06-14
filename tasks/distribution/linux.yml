@@ -1,4 +1,16 @@
 ---
+- name: for fedora using dnf5
+  when: ansible_pkg_mgr == "dnf5"
+  block:
+    - name: for fedora using dnf5, install python3-libdnf5
+      become: true
+      ansible.builtin.command:
+        cmd: "dnf install -y python3-libdnf5"
+  
+    # - name: for fedora using dnf5, switchback to dnf
+    #   ansible.builtin.set_fact:
+    #     ansible_pkg_mgr: dnf
+
 - name: "Include {{ packages_action }} with {{ ansible_pkg_mgr }} tasks"
   with_first_found:
     - files:

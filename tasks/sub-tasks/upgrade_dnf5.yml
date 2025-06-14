@@ -1,0 +1,22 @@
+---
+- name: Dnf install updates
+  become: true
+  register: dnf_result
+  ansible.builtin.dnf5:
+    name: "*"
+    update_cache: true
+    state: latest
+
+- name: Dnf get upgraded packages
+  become: true
+  when: dnf_result.changed
+  register: rpm_result
+  # args:
+  #   warn: false
+  ansible.builtin.shell:
+    cmd: 'rpm -qa --last | grep "$(date +%a\ %d\ %b\ %Y)" | cut -f 1 -d " "'
+
+- name: Dnf show upgrades
+  when: dnf_result.changed
+  ansible.builtin.debug:
+    msg: "{{ rpm_result.stdout_lines }}"
